@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "functions": {
+    "api/save_response.php": {
+      "runtime": "vercel-php@0.6.0"
+    }
+  },
+  "routes": [
+    { "src": "/save_response.php", "dest": "/api/save_response.php" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}

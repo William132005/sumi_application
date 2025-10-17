@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Usability Measurement Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #d9230f;
+        }
+        .header-note {
+            text-align: center;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+        .instructions {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .statement-row:nth-child(odd) {
+            background-color: #e6f7ff;
+        }
+        .radio-group {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .radio-option {
+            display: inline-flex;
+            align-items: center;
+            margin: 0 10px;
+        }
+        .radio-option input {
+            margin-right: 5px;
+        }
+        .radio-group {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .radio-option {
+            display: inline-flex;
+            align-items: center;
+            margin: 0 10px;
+        }
+        .radio-option input {
+            margin-right: 5px;
+        }
+        .section-header {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        textarea {
+            width: 100%;
+            height: 80px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .btn-submit {
+            background-color: #d9230f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+        }
+        .btn-submit:hover {
+            background-color: #a91b0c;
+        }
+        .required {
+            color: red;
+        }
+        #password {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Software Usability Measurement Inventory</h1>
+    <h2>SUMI</h2>
+
+    <div class="header-note">
+        <strong>NB</strong> The information you provide is kept completely confidential and no information is stored on computer media that could identify you as a person.
+    </div>
+
+    <div class="instructions">
+        <p>This questionnaire has 50 statements. Please answer them all. After each statement there are three boxes:</p>
+        <ul>
+            <li>Check the first box if you generally <strong>AGREE</strong> with the statement.</li>
+            <li>Check the middle box if you are <strong>UNDECIDED</strong>, or if the statement has no relevance to your software or to your situation.</li>
+            <li>Check the right box if you generally <strong>DISAGREE</strong> with the statement.</li>
+        </ul>
+        <p>In checking the left or right box you are not necessarily indicating strong agreement or disagreement but just your general feeling most of the time.</p>
+        <p>There are also some general questions at the end.</p>
+    </div>
+
+    <form id="sumiForm">
+        <div class="form-group">
+            <label for="name">Nama:</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+
+        <div class="section-header">Statements 1 - 10 of 50.</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="70%">Statement</th>
+                    <th width="30%">Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="statement-row">
+                    <td>This software responds too slowly to inputs.</td>
+                    <td>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="q1" value="agree" required> Agree</label>
+                            <label class="radio-option"><input type="radio" name="q1" value="undecided"> Undecided</label>
+                            <label class="radio-option"><input type="radio" name="q1" value="disagree"> Disagree</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>I would recommend this software to my colleagues.</td>
+                    <td>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="q2" value="agree" required> Agree</label>
+                            <label class="radio-option"><input type="radio" name="q2" value="undecided"> Undecided</label>
+                            <label class="radio-option"><input type="radio" name="q2" value="disagree"> Disagree</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="statement-row">
+                    <td>The instructions and prompts are helpful.</td>
+                    <td>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="q3" value="agree" required> Agree</label>
+                            <label class="radio-option"><input type="radio" name="q3" value="undecided"> Undecided</label>
+                            <label class="radio-option"><input type="radio" name="q3" value="disagree"> Disagree</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>This software has at some time stopped unexpectedly.</td>
+                    <td>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="q4" value="agree" required> Agree</label>
+                            <label class="radio-option"><input type="radio" name="q4" value="undecided"> Undecided</label>
+                            <label class="radio-option"><input type="radio" name="q4" value="disagree"> Disagree</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="statement-row">
+                    <td>Learning to operate this software initially is full of problems.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q5" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q5" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q5" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>I sometimes don't know what to do next with this software.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q6" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q6" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q6" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>I enjoy the time I spend using this software.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q7" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q7" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q7" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>I find that the help information given by this software is not very useful.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q8" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q8" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q8" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>If this software stops it is not easy to restart it.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q9" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q9" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q9" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>It takes too long to learn the software functions.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q10" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q10" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q10" value="disagree"> Disagree</label></div></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-header">Statements 11 - 20 of 50.</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="70%">Statement</th>
+                    <th width="30%">Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>I sometimes wonder if I am using the right function.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q11" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q11" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q11" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>Working with this software is satisfying.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q12" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q12" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q12" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>The way that system information is presented is clear and understandable.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q13" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q13" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q13" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>I feel safer if I use only a few familiar functions.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q14" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q14" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q14" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>The software documentation is very informative.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q15" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q15" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q15" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>This software seems to disrupt the way I normally like to arrange my work.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q16" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q16" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q16" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>Working with this software is mentally stimulating.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q17" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q17" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q17" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>There is never enough information on the screen when it's needed.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q18" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q18" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q18" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>I feel in command of this software when I am using it.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q19" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q19" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q19" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>I prefer to stick to the functions that I know best.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q20" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q20" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q20" value="disagree"> Disagree</label></div></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-header">Statements 21 - 30 of 50.</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="70%">Statement</th>
+                    <th width="30%">Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="statement-row">
+                    <td>I think this software is inconsistent.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q21" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q21" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q21" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>I would not like to use this software every day.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q22" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q22" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q22" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>I can understand and act on the information provided by this software.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q23" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q23" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q23" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>This software is awkward when I want to do something which is not standard.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q24" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q24" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q24" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>There is too much to read before you can use the software.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q25" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q25" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q25" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>Tasks can be performed in a straight forward manner using this software.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q26" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q26" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q26" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>Using this software is frustrating.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q27" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q27" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q27" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>The software has helped me overcome any problems I have had in using it.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q28" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q28" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q28" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>The speed of this software is fast enough.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q29" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q29" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q29" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>I keep having to go back to look at the guides.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q30" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q30" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q30" value="disagree"> Disagree</label></div></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-header">Statements 31 - 40 of 50.</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="70%">Statement</th>
+                    <th width="30%">Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>It is obvious that user needs have been fully taken into consideration.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q31" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q31" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q31" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>There have been times in using this software when I have felt quite tense.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q32" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q32" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q32" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>The organisation of the menus seems quite logical.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q33" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q33" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q33" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>The software allows the user to be economic of keystrokes.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q34" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q34" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q34" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>Learning how to use new functions is difficult.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q35" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q35" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q35" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>There are too many steps required to get something to work.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q36" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q36" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q36" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>I think this software has sometimes given me a headache.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q37" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q37" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q37" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>Error messages are not adequate.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q38" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q38" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q38" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>It is easy to make the software do exactly what you want.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q39" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q39" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q39" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>I will never learn to use all that is offered in this software.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q40" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q40" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q40" value="disagree"> Disagree</label></div></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-header">Statements 41 - 50 of 50.</div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="70%">Statement</th>
+                    <th width="30%">Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="statement-row">
+                    <td>The software hasn't always done what I was expecting.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q41" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q41" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q41" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>The software presents itself in a very attractive way.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q42" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q42" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q42" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>Either the amount or quality of the help information varies across the system.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q43" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q43" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q43" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>It is relatively easy to move from one part of a task to another.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q44" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q44" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q44" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>It is easy to forget how to do things with this software.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q45" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q45" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q45" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>This software occasionally behaves in a way which can't be understood.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q46" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q46" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q46" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>This software is really very awkward.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q47" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q47" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q47" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>It is easy to see at a glance what the options are at each stage.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q48" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q48" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q48" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr class="statement-row">
+                    <td>Getting data files in and out of the system is not easy.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q49" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q49" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q49" value="disagree"> Disagree</label></div></td>
+                </tr>
+                <tr>
+                    <td>I have to look for assistance most times when I use this software.</td>
+                    <td><div class="radio-group"><label class="radio-option"><input type="radio" name="q50" value="agree" required> Agree</label><label class="radio-option"><input type="radio" name="q50" value="undecided"> Undecided</label><label class="radio-option"><input type="radio" name="q50" value="disagree"> Disagree</label></div></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-header">Additional Questions</div>
+        <div class="form-group">
+            <label>How important for you is the kind of software you have just been rating?</label>
+            <div class="radio-container">
+                <input type="radio" id="importance_1" name="importance" value="extremely_important" required>
+                <label for="importance_1">Extremely important</label>
+            </div>
+            <div class="radio-container">
+                <input type="radio" id="importance_2" name="importance" value="important">
+                <label for="importance_2">Important</label>
+            </div>
+            <div class="radio-container">
+                <input type="radio" id="importance_3" name="importance" value="not_very_important">
+                <label for="importance_3">Not very important</label>
+            </div>
+            <div class="radio-container">
+                <input type="radio" id="importance_4" name="importance" value="not_important_at_all">
+                <label for="importance_4">Not important at all</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>How would you rate your software skills and knowledge?</label>
+            <div class="radio-container">
+                <input type="radio" id="skills_1" name="skills" value="very_experienced" required>
+                <label for="skills_1">Very experienced and technical</label>
+            </div>
+            <div class="radio-container">
+                <input type="radio" id="skills_2" name="skills" value="experienced">
+                <label for="skills_2">I'm experienced but not technical</label>
+            </div>
+            <div class="radio-container">
+                <input type="radio" id="skills_3" name="skills" value="cope">
+                <label for="skills_3">I can cope with most software</label>
+            </div>
+            <div class="radio-container">
+                <input type="radio" id="skills_4" name="skills" value="difficult">
+                <label for="skills_4">I find most software difficult to use</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="best_aspect">What do you think is the best aspect of this software, and why?</label>
+            <textarea id="best_aspect" name="best_aspect" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="improvement">What do you think needs most improvement, and why?</label>
+            <textarea id="improvement" name="improvement" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <p>When you've answered all the questions: please click the 'Send' button.</p>
+            <button type="submit" class="btn-submit">Send</button>
+        </div>
+    </form>
+
+    <footer>
+        <p style="text-align: center; margin-top: 30px; font-size: 0.8em;">4.2 SUMI EN 4.0</p>
+    </footer>
+
+    <script>
+        document.getElementById('sumiForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const formObject = {};
+            
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            
+            // Send data to server
+            fetch('/api/save_response.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formObject)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Thank you for completing the survey!');
+                    // Tidak perlu redirect ke results.html karena data tidak disimpan di server
+                    // window.location.href = 'results.html';
+                    console.log('Response received:', data);
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while submitting the form. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>

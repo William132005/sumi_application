@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUMI - Hasil Survei</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #d9230f;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-bottom: 40px;
+        }
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .stat-box {
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            width: 30%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .stat-box h3 {
+            margin-top: 0;
+            color: #d9230f;
+        }
+        .response-list {
+            margin-top: 40px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            background-color: #d9230f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .btn:hover {
+            background-color: #a91b0c;
+        }
+        .btn-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .category-section {
+            margin-bottom: 30px;
+        }
+        .no-data {
+            text-align: center;
+            padding: 50px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Software Usability Measurement Inventory</h1>
+    <h2>Hasil Survei</h2>
+
+    <div class="btn-container">
+        <a href="index.html" class="btn">Kembali ke Survei</a>
+    </div>
+
+    <div id="noData" class="no-data" style="display: none;">
+        <h3>Belum ada data survei</h3>
+        <p>Silakan isi survei terlebih dahulu untuk melihat hasil.</p>
+    </div>
+
+    <div id="dataContainer">
+        <div class="stats-container">
+            <div class="stat-box">
+                <h3>Total Responden</h3>
+                <p id="totalResponden">0</p>
+            </div>
+            <div class="stat-box">
+                <h3>Rata-rata Kepuasan</h3>
+                <p id="avgSatisfaction">0%</p>
+            </div>
+            <div class="stat-box">
+                <h3>Terakhir Diperbarui</h3>
+                <p id="lastUpdated">-</p>
+            </div>
+        </div>
+
+        <div class="category-section">
+            <h2>Ringkasan Kategori</h2>
+            <div class="chart-container">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+
+        <div class="category-section">
+            <h2>Distribusi Jawaban</h2>
+            <div class="chart-container">
+                <canvas id="responseDistributionChart"></canvas>
+            </div>
+        </div>
+
+        <div class="response-list">
+            <h2>Daftar Responden</h2>
+            <table id="responseTable">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Waktu</th>
+                        <th>Software Purpose</th>
+                        <th>Skill Level</th>
+                        <th>Importance</th>
+                        <th>Agree %</th>
+                        <th>Undecided %</th>
+                        <th>Disagree %</th>
+                    </tr>
+                </thead>
+                <tbody id="responseTableBody">
+                    <!-- Data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Kategori pertanyaan SUMI
+        const categories = {
+            efficiency: [1, 9, 20, 27, 29, 34, 36, 43, 49],
+            affect: [7, 12, 17, 27, 32, 37, 40, 47],
+            helpfulness: [3, 8, 15, 18, 23, 28, 38, 50],
+            control: [4, 6, 11, 14, 19, 21, 24, 46],
+            learnability: [5, 10, 25, 30, 35, 45, 48]
+        };
+
+        // Fungsi untuk memuat data dari server
+        async function loadData() {
+            try {
+                const response = await fetch('responses.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load data');
+                }
+                const data = await response.json();
+                
+                if (data.length === 0) {
+                    document.getElementById('noData').style.display = 'block';
+                    document.getElementById('dataContainer').style.display = 'none';
+                    return;
+                }
+                
+                document.getElementById('noData').style.display = 'none';
+                document.getElementById('dataContainer').style.display = 'block';
+                
+                processData(data);
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('noData').style.display = 'block';
+                document.getElementById('dataContainer').style.display = 'none';
+            }
+        }
+
+        // Fungsi untuk memproses data dan menampilkan chart
+        function processData(data) {
+            // Update statistik dasar
+            document.getElementById('totalResponden').textContent = data.length;
+            
+            if (data.length > 0) {
+                const lastResponse = data[data.length - 1];
+                document.getElementById('lastUpdated').textContent = lastResponse.timestamp || '-';
+            }
+            
+            // Hitung distribusi jawaban
+            const agreeCounts = [];
+            const undecidedCounts = [];
+            const disagreeCounts = [];
+            
+            // Hitung skor per kategori
+            const categoryScores = {
+                efficiency: 0,
+                affect: 0,
+                helpfulness: 0,
+                control: 0,
+                learnability: 0
+            };
+            
+            // Proses setiap respons
+            data.forEach(response => {
+                let agreeCount = 0;
+                let undecidedCount = 0;
+                let disagreeCount = 0;
+                
+                // Hitung untuk setiap pertanyaan
+                for (let i = 1; i <= 50; i++) {
+                    const key = 'q' + i;
+                    if (response[key] === 'agree') {
+                        agreeCount++;
+                    } else if (response[key] === 'undecided') {
+                        undecidedCount++;
+                    } else if (response[key] === 'disagree') {
+                        disagreeCount++;
+                    }
+                    
+                    // Hitung skor kategori
+                    for (const category in categories) {
+                        if (categories[category].includes(i)) {
+                            // Nilai positif untuk jawaban yang menunjukkan usability baik
+                            // Beberapa pertanyaan bersifat negatif, sehingga disagree = positif
+                            const isNegativeQuestion = [1, 4, 5, 6, 8, 9, 16, 18, 21, 24, 25, 27, 30, 32, 35, 36, 37, 38, 40, 41, 43, 45, 46, 47, 49, 50].includes(i);
+                            
+                            if (isNegativeQuestion) {
+                                if (response[key] === 'disagree') categoryScores[category]++;
+                                if (response[key] === 'agree') categoryScores[category]--;
+                            } else {
+                                if (response[key] === 'agree') categoryScores[category]++;
+                                if (response[key] === 'disagree') categoryScores[category]--;
+                            }
+                        }
+                    }
+                }
+                
+                agreeCounts.push(agreeCount);
+                undecidedCounts.push(undecidedCount);
+                disagreeCounts.push(disagreeCount);
+                
+                // Tambahkan ke tabel
+                addResponseToTable(response, agreeCount, undecidedCount, disagreeCount);
+            });
+            
+            // Hitung rata-rata kepuasan (berdasarkan jawaban positif)
+            const totalPositiveResponses = agreeCounts.reduce((sum, count) => sum + count, 0);
+            const avgSatisfaction = (totalPositiveResponses / (data.length * 50) * 100).toFixed(1);
+            document.getElementById('avgSatisfaction').textContent = avgSatisfaction + '%';
+            
+            // Normalisasi skor kategori
+            for (const category in categoryScores) {
+                categoryScores[category] = (categoryScores[category] / (data.length * categories[category].length) * 100 + 50).toFixed(1);
+            }
+            
+            // Buat chart kategori
+            createCategoryChart(categoryScores);
+            
+            // Buat chart distribusi jawaban
+            createDistributionChart(agreeCounts, undecidedCounts, disagreeCounts);
+        }
+        
+        // Fungsi untuk menambahkan respons ke tabel
+        function addResponseToTable(response, agreeCount, undecidedCount, disagreeCount) {
+            const tableBody = document.getElementById('responseTableBody');
+            const rowCount = tableBody.rows.length;
+            
+            const row = tableBody.insertRow();
+            
+            const cellNo = row.insertCell(0);
+            const cellTime = row.insertCell(1);
+            const cellPurpose = row.insertCell(2);
+            const cellSkill = row.insertCell(3);
+            const cellImportance = row.insertCell(4);
+            const cellAgree = row.insertCell(5);
+            const cellUndecided = row.insertCell(6);
+            const cellDisagree = row.insertCell(7);
+            
+            cellNo.textContent = rowCount + 1;
+            cellTime.textContent = response.timestamp || '-';
+            cellPurpose.textContent = response.software_purpose || '-';
+            
+            // Map skill level
+            const skillMap = {
+                'very_experienced': 'Very experienced',
+                'experienced': 'Experienced',
+                'cope': 'Can cope',
+                'difficult': 'Finds difficult'
+            };
+            cellSkill.textContent = skillMap[response.skills] || '-';
+            
+            // Map importance
+            const importanceMap = {
+                'extremely_important': 'Extremely important',
+                'important': 'Important',
+                'not_very_important': 'Not very important',
+                'not_important_at_all': 'Not important at all'
+            };
+            cellImportance.textContent = importanceMap[response.importance] || '-';
+            
+            // Persentase jawaban
+            cellAgree.textContent = ((agreeCount / 50) * 100).toFixed(0) + '%';
+            cellUndecided.textContent = ((undecidedCount / 50) * 100).toFixed(0) + '%';
+            cellDisagree.textContent = ((disagreeCount / 50) * 100).toFixed(0) + '%';
+        }
+        
+        // Fungsi untuk membuat chart kategori
+        function createCategoryChart(categoryScores) {
+            const ctx = document.getElementById('categoryChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Efficiency', 'Affect', 'Helpfulness', 'Control', 'Learnability'],
+                    datasets: [{
+                        label: 'Skor Kategori',
+                        data: [
+                            categoryScores.efficiency,
+                            categoryScores.affect,
+                            categoryScores.helpfulness,
+                            categoryScores.control,
+                            categoryScores.learnability
+                        ],
+                        backgroundColor: 'rgba(217, 35, 15, 0.2)',
+                        borderColor: 'rgba(217, 35, 15, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(217, 35, 15, 1)'
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Fungsi untuk membuat chart distribusi jawaban
+        function createDistributionChart(agreeCounts, undecidedCounts, disagreeCounts) {
+            const ctx = document.getElementById('responseDistributionChart').getContext('2d');
+            
+            // Hitung rata-rata
+            const avgAgree = (agreeCounts.reduce((a, b) => a + b, 0) / agreeCounts.length).toFixed(1);
+            const avgUndecided = (undecidedCounts.reduce((a, b) => a + b, 0) / undecidedCounts.length).toFixed(1);
+            const avgDisagree = (disagreeCounts.reduce((a, b) => a + b, 0) / disagreeCounts.length).toFixed(1);
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Agree', 'Undecided', 'Disagree'],
+                    datasets: [{
+                        label: 'Rata-rata Jawaban',
+                        data: [avgAgree, avgUndecided, avgDisagree],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(255, 99, 132, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 50
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Load data saat halaman dimuat
+        window.addEventListener('load', loadData);
+    </script>
+</body>
+</html>
